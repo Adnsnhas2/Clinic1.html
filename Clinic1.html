@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IP Geolocation & MAC Address Lookup</title>
+<style>
+    /* CSS styles remain the same as before */
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>IP Geolocation & MAC Address Lookup</h1>
+    <input type="text" id="ipInput" placeholder="Enter IP Address">
+    <button onclick="getLocation()">Find Location & MAC Address</button>
+    <div id="locationInfo"></div>
+</div>
+<script>
+    function getLocation() {
+        const ip = document.getElementById('ipInput').value;
+        fetch(`https://ipapi.co/${ip}/json/`)
+        .then(response => response.json())
+        .then(data => {
+            const locationInfo = document.getElementById('locationInfo');
+            locationInfo.innerHTML = `
+                <p><strong>IP Address:</strong> ${data.ip}</p>
+                <p><strong>City:</strong> ${data.city}</p>
+                <p><strong>Region:</strong> ${data.region}</p>
+                <p><strong>Country:</strong> ${data.country_name}</p>
+                <p><strong>MAC Address:</strong> ${data.mac}</p>
+            `;
+        })
+        .catch(error => {
+            alert('Failed to fetch location and MAC address information. Please try again.');
+        });
+    }
+</script>
+</body>
+</html>
